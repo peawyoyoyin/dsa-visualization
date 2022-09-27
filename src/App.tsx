@@ -1,5 +1,6 @@
 import type { Component } from 'solid-js';
 import MainView from './MainView/MainView';
+import Toolbar from "./components/Toolbar";
 
 const App: Component = () => {
   return (
@@ -10,6 +11,7 @@ const App: Component = () => {
           </span>
         </div>
         <MainView />
+        <Toolbar/>
       </div>
   );
 };
