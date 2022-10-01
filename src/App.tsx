@@ -1,4 +1,5 @@
 import type { Component } from 'solid-js';
+import MainView from './MainView/MainView';
 
 const App: Component = () => {
   return (
@@ -8,6 +9,7 @@ const App: Component = () => {
             DSA
           </span>
         </div>
+        <MainView />
       </div>
   );
 };
