@@ -10,8 +10,8 @@ const App: Component = () => {
             DSA
           </span>
         </div>
-        <MainView />
         <Toolbar/>
+        <MainView />
       </div>
   );
 };
