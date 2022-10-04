@@ -1,6 +1,7 @@
 import type { Component } from 'solid-js';
 import MainView from './MainView/MainView';
 import Toolbar from './components/Toolbar';
+import InfoPanel from './components/InfoPanel';
 
 const App: Component = () => {
     return (
@@ -9,7 +10,10 @@ const App: Component = () => {
                 <span>DSA</span>
             </div>
             <Toolbar />
-            <MainView />
+            <div>
+                <MainView />
+                <InfoPanel />
+            </div>
         </div>
     );
 };
