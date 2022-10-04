@@ -1,17 +1,17 @@
 import type { Component } from 'solid-js';
 import MainView from './MainView/MainView';
+import Toolbar from './components/Toolbar';
 
 const App: Component = () => {
-  return (
-      <div>
-        <div class="py-2 px-3 bg-neutral-200 flex justify-between">
-          <span>
-            DSA
-          </span>
+    return (
+        <div>
+            <div class="fixed w-full py-2 px-3 bg-neutral-200 flex justify-between">
+                <span>DSA</span>
+            </div>
+            <Toolbar />
+            <MainView />
         </div>
-        <MainView />
-      </div>
-  );
+    );
 };
 
 export default App;
