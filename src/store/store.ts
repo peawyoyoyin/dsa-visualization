@@ -1,33 +1,43 @@
-import { createMutable, createStore } from 'solid-js/store';
+import { createStore } from 'solid-js/store';
 
-type Position = [x: number, y: number];
+type Position = [x: number, y: number]
 
-type EntityType = 'tree' | 'graph';
+type EntityType = 'tree' | 'graph'
 
 interface BaseEntity {
-    id: number;
-    type: EntityType;
-    position: Position;
+    id: number
+    type: EntityType
+    position: Position
 }
 
 interface TreeNode {
-    id: number;
-    label: string;
-    children: TreeNode[];
+    id: number
+    label: string
+    children: TreeNode[]
 }
 
 export interface TreeEntity extends BaseEntity {
-    type: 'tree';
-    tree: TreeNode;
+    type: 'tree'
+    tree: TreeNode
 }
 
 export type Entity = TreeEntity;
 
-export interface AppState {
-    entities: Entity[];
+interface SelectState {
+    selectedEntityId: BaseEntity['id']
+    dragOffset: [number, number]
 }
 
-export const state = createMutable<AppState>({
+export interface AppState {
+    selectState: SelectState
+    entities: Entity[]
+}
+
+export const [state, setState] = createStore<AppState>({
+    selectState: {
+        selectedEntityId: null,
+        dragOffset: [0, 0]
+    },
     entities: [
         {
             id: 1,
