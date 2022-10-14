@@ -5,7 +5,7 @@ import Toolbar from './components/Toolbar';
 const App: Component = () => {
     return (
         <div>
-            <div class="fixed w-full py-2 px-3 bg-neutral-200 flex justify-between">
+            <div class="fixed w-full py-2 px-3 bg-neutral-200 flex justify-between select-none">
                 <span>DSA</span>
             </div>
             <Toolbar />
