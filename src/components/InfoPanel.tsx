@@ -5,7 +5,7 @@ const InfoPanel: Component = () => {
         'bg-blue-400 hover:bg-blue-500 px-3 py-2 rounded-md transition-colors';
     const rowStyle = () => 'flex flex-row my-3';
     return (
-        <div class="max-w-fit bg-slate-300 px-3 py-4 rounded-md">
+        <div class="fixed top-11 right-2 max-w-fit bg-slate-300 px-3 py-4 rounded-md">
             <div class={rowStyle()}>
                 <div class="mr-2">Node</div>
                 <div>#12223124</div>
