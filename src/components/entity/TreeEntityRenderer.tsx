@@ -1,6 +1,5 @@
-import { Component, For } from 'solid-js';
-import { renderTree } from '../../MainView/RenderTree';
-import { Entity, TreeEntity } from '../../store/store';
+import {Component, For} from 'solid-js';
+import {Entity, setState, TreeEntity} from '../../store/store';
 
 interface EntityRendererProps<T extends Entity> {
     entity: T;
@@ -9,21 +8,22 @@ interface EntityRendererProps<T extends Entity> {
 const TreeEntityRenderer: Component<EntityRendererProps<TreeEntity>> = (
     props
 ) => {
-    const renderInfo = () =>
-        renderTree(props.entity.tree, {
-            levelSpacing: 90,
-            nodeSize: 40,
-            baseNodeSpacing: 35,
-            incrementalNodeSpacing: 5,
-        });
+    const edges = () => props.entity.elements.edges;
+    const edgesKeys = () => Object.keys(edges());
+    const nodes = () => props.entity.elements.nodes;
+    const nodesKeys = () => Object.keys(nodes());
+    const entityId = () => props.entity.id;
 
     return (
         <g>
             <g>
-                <For each={renderInfo().edges}>
-                    {(item) => {
-                        const [x1, y1] = item.end1;
-                        const [x2, y2] = item.end2;
+                <For each={edgesKeys()}>
+                    {(key) => {
+                        // idNode1, idNode2
+                        const {end1, end2} = edges()[key];
+                        const [x1, y1] = nodes()[end1].position;
+                        const [x2, y2] = nodes()[end2].position;
+
                         return (
                             <line
                                 x1={x1}
@@ -39,11 +39,26 @@ const TreeEntityRenderer: Component<EntityRendererProps<TreeEntity>> = (
             </g>
 
             <g>
-                <For each={renderInfo().nodes}>
-                    {(item) => {
-                        const [x, y] = item.position;
+                <For each={nodesKeys()}>
+                    {(nodeKey) => {
+                        const node = nodes()[nodeKey];
+                        const [x, y] = node.position;
                         return (
-                            <g onDblClick={(e) => { }}>
+                            <g
+                                onDblClick={(e) => {
+                                    setState(
+                                        'selectState',
+                                        'selectedNodeId',
+                                        parseInt(nodeKey, 10)
+                                    )
+                                    setState(
+                                        'selectState',
+                                        'selectedEntityNodeId',
+                                        entityId()
+                                    )
+                                }
+                                }
+                            >
                                 <circle
                                     cx={x}
                                     cy={y}
@@ -58,9 +73,9 @@ const TreeEntityRenderer: Component<EntityRendererProps<TreeEntity>> = (
                                     fill="black"
                                     dominant-baseline="middle"
                                     text-anchor="middle"
-                                    style={{ 'user-select': 'none' }}
+                                    style={{'user-select': 'none'}}
                                 >
-                                    {item.nodeRef.label}
+                                    {node.label}
                                 </text>
                             </g>
                         );
